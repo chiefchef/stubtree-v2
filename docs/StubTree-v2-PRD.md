@@ -102,3 +102,205 @@ Storage:
 
 Realtime:
 - SignalR
+
+## Organization Model
+
+Events are owned by Organizations.
+
+Organization Types:
+
+### Venue
+
+Examples:
+
+* Josabi's
+* The Hall
+* Sam's Burger Joint
+
+Capabilities:
+
+* Create events
+* Manage staff
+* Manage door operations
+* Manage parking operations
+* Manage reporting
+* Manage settlements
+* Manage users
+
+Default StubTree Fee:
+
+$2.00 per ticket
+
+---
+
+### Promoter
+
+Examples:
+
+* Texas Sound & Events
+
+Capabilities:
+
+* Create events
+* Link venues
+* Link artists
+* Create promo codes
+* Access promoter reporting
+* Manage marketing
+
+Default StubTree Fee:
+
+$2.00 per ticket
+
+---
+
+### Artist / Band
+
+Examples:
+
+* San & Tone Pilots
+* FooVana
+* Toadies
+
+Capabilities:
+
+* Create events
+* Sell tickets
+* Create promo codes
+* Access artist dashboards
+* Upload W9 documents
+* Access assigned event reporting
+
+Default StubTree Fee:
+
+$1.00 per ticket
+
+Bands receive a lower fee because they are the primary growth channel for the platform.
+
+---
+
+## Event Ownership
+
+Events are owned by an Organization.
+
+An event may be owned by:
+
+* Venue
+* Promoter
+* Artist
+
+Examples:
+
+Josabi's creates an event:
+
+* Organization Type = Venue
+
+Texas Sound & Events creates an event:
+
+* Organization Type = Promoter
+
+San & Tone Pilots creates an event:
+
+* Organization Type = Artist
+
+The owner controls the event.
+
+The owner may invite other users and organizations to participate.
+
+---
+
+## Venue Creation
+
+Venues may exist independently of events.
+
+Examples:
+
+* Josabi's
+* The Hall
+* Sam's Burger Joint
+
+A promoter or artist may create a temporary venue if the venue does not already exist.
+
+Venue records should support:
+
+* Name
+* Address
+* Website
+* Capacity
+* Notes
+* Verification Status
+
+---
+
+## Artists
+
+Artists are first-class entities.
+
+Artists may:
+
+* Appear in multiple events
+* Have multiple users
+* Upload W9 documents
+* Access event reporting
+* Access event documents
+
+Artists must never see:
+
+* Customer names
+* Customer emails
+* Customer phone numbers
+* Individual order details
+
+Artist access is controlled by permissions.
+
+---
+
+## Artist Permissions
+
+Artist permissions are configurable on a per-event basis.
+
+Examples:
+
+* View Ticket Sales
+* View Revenue
+* View Promo Codes
+* View Ticket Breakdown
+* View Check-In Count
+* View Settlement Estimate
+* View Marketing QR Statistics
+* View Own Contract
+* Upload W9
+* Download 1099
+
+The venue or event owner controls these permissions.
+
+Roles are templates only.
+
+Permissions are the actual security model.
+
+---
+
+## User Roles
+
+Initial Roles:
+
+* StubTree Admin
+* Venue Admin
+* Promoter
+* Artist
+* Door Staff
+* Parking Staff
+* Customer
+
+Users may have multiple roles.
+
+Example:
+
+A user may be:
+
+* Door Staff
+* Parking Staff
+
+with a single login.
+
+Role assignments should support both venue-level access and event-level access.
