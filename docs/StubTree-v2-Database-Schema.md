@@ -459,3 +459,321 @@ created_at timestamptz not null
 updated_at timestamptz not null
 deleted_at timestamptz null
 ```
+
+# 5. Ticketing Tables
+
+## ticket_kinds
+
+Controls scanner behavior.
+
+Examples:
+
+* admission
+* parking
+* vip
+* table
+* addon
+* comp
+
+```sql
+id uuid primary key
+key text not null unique
+name text not null
+description text null
+created_at timestamptz not null
+updated_at timestamptz not null
+```
+
+---
+
+## ticket_templates
+
+Reusable venue templates.
+
+```sql
+id uuid primary key
+venue_id uuid not null references venues(id)
+name text not null
+is_default boolean not null default false
+created_at timestamptz not null
+updated_at timestamptz not null
+deleted_at timestamptz null
+```
+
+---
+
+## ticket_template_items
+
+```sql
+id uuid primary key
+ticket_template_id uuid not null references ticket_templates(id)
+
+ticket_kind_id uuid not null references ticket_kinds(id)
+
+name text not null
+description text null
+
+price numeric(10,2) not null
+
+day_of_show_price numeric(10,2) null
+
+quantity_available integer null
+
+includes_admission boolean not null default false
+
+max_per_order integer null
+
+sale_start_offset_hours integer null
+
+sale_end_offset_hours integer null
+
+sort_order integer not null default 0
+
+created_at timestamptz not null
+updated_at timestamptz not null
+deleted_at timestamptz null
+```
+
+---
+
+## ticket_types
+
+Event-specific ticket types.
+
+```sql
+id uuid primary key
+
+event_id uuid not null references events(id)
+
+ticket_kind_id uuid not null references ticket_kinds(id)
+
+name text not null
+
+description text null
+
+price numeric(10,2) not null
+
+day_of_show_price numeric(10,2) null
+
+quantity_available integer not null
+
+quantity_sold integer not null default 0
+
+includes_admission boolean not null default false
+
+max_per_order integer null
+
+sale_start_at timestamptz null
+
+sale_end_at timestamptz null
+
+sort_order integer not null default 0
+
+is_visible boolean not null default true
+
+created_at timestamptz not null
+updated_at timestamptz not null
+deleted_at timestamptz null
+```
+
+---
+
+# 6. Customer Tables
+
+## customers
+
+Customer profile.
+
+```sql
+id uuid primary key
+
+user_id uuid null references users(id)
+
+email text not null
+
+first_name text null
+
+last_name text null
+
+phone text null
+
+last_order_at timestamptz null
+
+created_at timestamptz not null
+updated_at timestamptz not null
+deleted_at timestamptz null
+```
+
+---
+
+# 7. Cart Tables
+
+## carts
+
+```sql
+id uuid primary key
+
+customer_id uuid not null references customers(id)
+
+event_id uuid not null references events(id)
+
+status text not null
+
+expires_at timestamptz null
+
+created_at timestamptz not null
+updated_at timestamptz not null
+```
+
+Status:
+
+* active
+* abandoned
+* converted
+
+---
+
+## cart_items
+
+```sql
+id uuid primary key
+
+cart_id uuid not null references carts(id)
+
+ticket_type_id uuid not null references ticket_types(id)
+
+quantity integer not null
+
+unit_price numeric(10,2) not null
+
+created_at timestamptz not null
+updated_at timestamptz not null
+```
+
+---
+
+# 8. Order Tables
+
+## orders
+
+One Stripe checkout = one order.
+
+```sql
+id uuid primary key
+
+order_number text not null unique
+
+customer_id uuid not null references customers(id)
+
+event_id uuid not null references events(id)
+
+status text not null
+
+base_ticket_total numeric(10,2) not null
+
+stubtree_fee_total numeric(10,2) not null
+
+card_fee_total numeric(10,2) not null
+
+tax_total numeric(10,2) not null
+
+discount_total numeric(10,2) not null
+
+grand_total numeric(10,2) not null
+
+placed_at timestamptz null
+
+created_at timestamptz not null
+updated_at timestamptz not null
+```
+
+Status:
+
+* pending
+* paid
+* refunded
+* partially_refunded
+* cancelled
+
+---
+
+## order_items
+
+Snapshot of pricing.
+
+```sql
+id uuid primary key
+
+order_id uuid not null references orders(id)
+
+ticket_type_id uuid not null references ticket_types(id)
+
+ticket_kind_id uuid not null references ticket_kinds(id)
+
+name text not null
+
+quantity integer not null
+
+unit_price numeric(10,2) not null
+
+stubtree_fee numeric(10,2) not null
+
+card_fee numeric(10,2) not null
+
+tax_amount numeric(10,2) not null
+
+discount_amount numeric(10,2) not null
+
+line_total numeric(10,2) not null
+
+created_at timestamptz not null
+```
+
+---
+
+# 9. Ticket Tables
+
+## tickets
+
+Most important table in the system.
+
+Each ticket is an individual record.
+
+```sql
+id uuid primary key
+
+order_id uuid not null references orders(id)
+
+order_item_id uuid not null references order_items(id)
+
+event_id uuid not null references events(id)
+
+ticket_type_id uuid not null references ticket_types(id)
+
+ticket_kind_id uuid not null references ticket_kinds(id)
+
+customer_id uuid not null references customers(id)
+
+ticket_token text not null unique
+
+status text not null
+
+issued_at timestamptz not null
+
+checked_in_at timestamptz null
+
+refunded_at timestamptz null
+
+created_at timestamptz not null
+updated_at timestamptz not null
+```
+
+Status:
+
+* active
+* scanned
+* refunded
+* voided
+
+```
+```
