@@ -1265,6 +1265,125 @@ for any historical event.
 
 Archived events remain searchable and reportable.
 
+## Fee Calculation Engine
+
+StubTree calculates pricing using four components:
+
+1. Base Ticket Price
+2. StubTree Fee
+3. Card Processing Fee
+4. Sales Tax
+
+### Default StubTree Fees
+
+Venue-Owned Event:
+
+* $2.00 per ticket
+
+Promoter-Owned Event:
+
+* $2.00 per ticket
+
+Artist-Owned Event:
+
+* $1.00 per ticket
+
+Fee amounts should be configurable at the organization level.
+
+All fees must be snapshotted at the time of purchase.
+
+---
+
+### Card Processing Fee
+
+Default:
+
+* 3% of ticket price
+* Plus $0.30 per ticket
+
+Card fees should be configurable in the future.
+
+---
+
+### Sales Tax
+
+Initial implementation:
+
+Texas Sales Tax:
+
+* 8.25%
+
+Tax should be calculated on:
+
+* Base Ticket Price
+* StubTree Fee
+* Card Fee
+
+Tax rates should be configurable by organization.
+
+---
+
+### Example Calculation
+
+General Admission Ticket:
+
+Base Ticket:
+
+$25.00
+
+StubTree Fee:
+
+$2.00
+
+Card Fee:
+
+$1.05
+
+Taxable Amount:
+
+$28.05
+
+Tax:
+
+$2.31
+
+Grand Total:
+
+$30.36
+
+---
+
+### Reporting Requirements
+
+Reporting should separately track:
+
+* Base Ticket Revenue
+* StubTree Fee Revenue
+* Card Fee Revenue
+* Tax Revenue
+* Discounts
+* Net Revenue
+
+These values must be available in:
+
+* Orders
+* Reports
+* Settlements
+* Exports
+
+---
+
+### Future Fee Flexibility
+
+Future versions should support:
+
+* Per-event fee overrides
+* Per-ticket-type fee overrides
+* Venue-specific fee structures
+* White-label fee structures
+
+The architecture should support these scenarios without database redesign.
+
 ## Refund Philosophy
 
 Public-facing policy for Josabi's:
