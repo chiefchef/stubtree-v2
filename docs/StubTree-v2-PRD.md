@@ -936,3 +936,331 @@ Reporting should include:
 * Tickets sold
 * Discount totals
 * Conversion performance
+
+## Reporting Philosophy
+
+Reporting is a core feature of StubTree.
+
+The goal is to provide organizers with significantly better visibility into event performance than competing platforms.
+
+All dashboards should be mobile-friendly and accessible on:
+
+* Desktop
+* Tablet
+* Mobile
+
+Users should be able to quickly understand event performance without exporting spreadsheets.
+
+---
+
+## Venue Dashboard
+
+Venue users should have access to venue-wide reporting.
+
+Examples:
+
+### Overview
+
+* Upcoming Events
+* Events This Month
+* Tickets Sold This Month
+* Revenue This Month
+* Refund Requests
+* Recent Orders
+
+### Event Summary
+
+For each event:
+
+* Tickets Sold
+* Revenue
+* Attendance
+* Refunds
+* Comps
+* Parking Sold
+* Tables Sold
+
+### Trends
+
+* Daily Sales
+* Weekly Sales
+* Revenue Trends
+* Ticket Velocity
+
+### Marketing Performance
+
+* Promo Code Performance
+* Marketing QR Performance
+* Campaign Attribution
+
+---
+
+## Event Dashboard
+
+Every event should have its own dashboard.
+
+### Event Overview
+
+* Event Name
+* Date
+* Venue
+* Status
+
+### Sales
+
+* Tickets Sold
+* Revenue
+* Refunds
+* Discounts
+* Taxes
+* Fees
+
+### Attendance
+
+* Tickets Scanned
+* Tickets Remaining
+* Attendance Percentage
+
+### Ticket Breakdown
+
+Examples:
+
+* General Admission
+* Rail Chairs
+* Tables
+* VIP Parking
+
+### Sales Trends
+
+* Daily Sales
+* Hourly Sales
+* Sales Velocity
+
+### Marketing
+
+* Promo Codes
+* Marketing QR Codes
+* Facebook Event Link
+* Campaign Spend
+
+### Documents
+
+* Contracts
+* Posters
+* Settlement Files
+* Event Documents
+
+---
+
+## Artist Dashboard
+
+Artists only see information allowed by permissions.
+
+Examples:
+
+### Allowed Metrics
+
+* Ticket Sales
+* Revenue
+* Promo Code Usage
+* Attendance
+* Marketing QR Performance
+* Settlement Estimates
+
+### Restricted Data
+
+Artists may never see:
+
+* Customer Names
+* Customer Emails
+* Customer Phones
+* Individual Orders
+
+Artist permissions are configurable by the event owner.
+
+---
+
+## Promoter Dashboard
+
+Promoters can view events they own or are assigned to.
+
+Examples:
+
+* Event Sales
+* Event Revenue
+* Marketing Performance
+* Promo Code Usage
+* Attendance
+* Settlement Estimates
+
+Promoters should have a broader view than artists but less visibility than venue admins.
+
+---
+
+## StubTree Admin Dashboard
+
+Platform-wide visibility.
+
+Examples:
+
+### Revenue
+
+* Platform Revenue
+* Total Tickets Sold
+* Total Orders
+
+### Operations
+
+* Refund Queue
+* Support Queue
+* Failed Emails
+* Failed SMS
+
+### Events
+
+* Upcoming Events
+* Recently Published Events
+* Top Performing Events
+
+### Risk Monitoring
+
+* High Refund Rates
+* Excessive Chargebacks
+* Suspicious Accounts
+* Potential Venue Conversion Alerts
+
+---
+
+## Promo Code Reporting
+
+Promo code reporting is a first-class feature.
+
+Each code should track:
+
+* Uses
+* Revenue
+* Discount Amount
+* Tickets Sold
+* Conversion Rate
+
+Examples:
+
+```text
+TOADIES
+75 Uses
+$2,400 Revenue
+```
+
+```text
+RADIO
+32 Uses
+$960 Revenue
+```
+
+---
+
+## Marketing QR Reporting
+
+Marketing QR codes should track:
+
+* Scans
+* Clicks
+* Purchases
+* Revenue
+
+Examples:
+
+Band QR:
+
+* 500 Scans
+* 80 Purchases
+
+Promoter QR:
+
+* 300 Scans
+* 50 Purchases
+
+Poster QR:
+
+* 200 Scans
+* 15 Purchases
+
+This allows organizers to measure which marketing efforts actually generate sales.
+
+---
+
+## Settlement Reporting
+
+Settlement reporting should support event reconciliation.
+
+### Revenue Sources
+
+* Online Sales
+* Door Cash
+* Door Card
+* Manual External Sales
+
+### Adjustments
+
+* Refunds
+* Discounts
+* Comps
+
+### Fees
+
+* StubTree Fees
+* Card Fees
+* Taxes
+
+### Totals
+
+* Gross Revenue
+* Net Revenue
+
+### Artist Information
+
+* Guarantees
+* Bonus Structures
+* Promo Code Revenue
+
+Settlement reporting should display:
+
+1. Raw numbers
+2. Estimated settlements
+
+Manual overrides may be added later.
+
+---
+
+## Refund Reporting
+
+Track:
+
+* Refund Count
+* Refund Amount
+* Refund Reason
+* Refund Type
+
+Examples:
+
+* Full Refund
+* Partial Refund
+* Bulk Refund
+
+---
+
+## Event History
+
+Historical reporting should remain available after events are archived.
+
+Users should be able to review:
+
+* Historical sales
+* Attendance
+* Marketing performance
+* Settlement data
+* Ticket trends
+
+for any historical event.
+
+Archived events remain searchable and reportable.
