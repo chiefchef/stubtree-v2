@@ -575,3 +575,364 @@ Fields:
 No automatic purchasing required in v2.
 
 Waitlist exists primarily for lead capture and demand tracking.
+
+## Customer Accounts
+
+StubTree does not support guest checkout.
+
+Every purchaser must have a StubTree account.
+
+The primary goal is to eliminate mistyped email addresses and improve ticket delivery reliability.
+
+### Account Creation Flow
+
+1. Customer enters email address.
+2. StubTree sends a magic link.
+3. Customer clicks the magic link.
+4. StubTree verifies the email.
+5. If the account does not exist:
+
+   * Create account.
+6. If the account exists:
+
+   * Log the customer in.
+7. Return customer to original cart.
+8. Continue checkout.
+
+Existing users may also log in using:
+
+* Email
+* Password
+
+### Customer Profile
+
+Customers should have:
+
+* First Name
+* Last Name
+* Email
+* Phone (optional)
+
+Email is required.
+
+Phone is optional.
+
+Phone should be validated if supplied.
+
+---
+
+## Customer Portal
+
+Customers should be able to:
+
+### Upcoming Events
+
+View future ticket purchases.
+
+### Past Events
+
+View historical purchases.
+
+### My Tickets
+
+Access active QR codes.
+
+### Account Settings
+
+Manage account information.
+
+### Ticket Resend
+
+Resend tickets to themselves.
+
+### Refund Status
+
+View refunded tickets.
+
+---
+
+## Stripe Checkout Philosophy
+
+StubTree should not collect credit card information.
+
+StubTree should not store credit card information.
+
+StubTree should not process card fields directly.
+
+All online payments must occur on Stripe-hosted pages.
+
+### Checkout Flow
+
+Customer builds cart.
+
+StubTree creates:
+
+* Pending Order
+
+StubTree creates:
+
+* Stripe Checkout Session
+
+Customer is redirected to Stripe.
+
+Stripe collects payment.
+
+Stripe webhook confirms payment.
+
+StubTree marks order as paid.
+
+StubTree generates tickets.
+
+StubTree delivers tickets.
+
+### Benefits
+
+* Reduced PCI scope
+* Simpler compliance
+* Improved security
+* Faster implementation
+
+---
+
+## Ticket Lifecycle
+
+Ticket Statuses:
+
+* Pending
+* Paid
+* Issued
+* Scanned
+* Refunded
+* Voided
+
+### Pending
+
+Order exists.
+
+Payment not confirmed.
+
+### Paid
+
+Stripe payment confirmed.
+
+### Issued
+
+Ticket generated.
+
+QR available.
+
+### Scanned
+
+Customer checked in.
+
+### Refunded
+
+Refund completed.
+
+Ticket invalid.
+
+### Voided
+
+Manually disabled.
+
+Ticket invalid.
+
+---
+
+## Ticket Ownership
+
+In v2:
+
+Tickets belong to the purchasing customer.
+
+Example:
+
+John purchases:
+
+* 4 General Admission
+* 1 Parking
+
+All tickets belong to John.
+
+Attendee assignment is out of scope for v2.
+
+However:
+
+Tickets must be modeled as individual records so attendee assignment can be added later.
+
+---
+
+## QR Ticket Strategy
+
+Every ticket receives a unique QR code.
+
+QR codes are generated after payment confirmation.
+
+One ticket equals one QR code.
+
+One order may contain many tickets.
+
+### Examples
+
+Order:
+
+4 General Admission
+
+Generates:
+
+4 tickets
+
+4 QR codes
+
+### Ticket URL
+
+Preferred format:
+
+```text
+/t/{ticket_token}
+```
+
+Ticket tokens should not expose database IDs.
+
+---
+
+## Ticket Display Experience
+
+Customers should be able to:
+
+* View ticket
+* Swipe between tickets
+* View QR codes easily on mobile
+
+Large QR codes should be optimized for scanning.
+
+### Real-Time Scan Experience
+
+When a ticket is scanned:
+
+Customer portal should update instantly.
+
+Show:
+
+✓ Checked In
+
+Then automatically advance to the next unscanned ticket.
+
+Recommended technology:
+
+SignalR
+
+---
+
+## Ticket Kinds
+
+Ticket Kind is different from Ticket Type.
+
+Examples:
+
+### Admission
+
+Used for venue entry.
+
+### Parking
+
+Used for parking access.
+
+### VIP
+
+Used for VIP checkpoints.
+
+### Add-On
+
+Used for upgrades and extras.
+
+### Comp
+
+Used for guest lists and promotional tickets.
+
+Ticket Kind controls scanner behavior.
+
+---
+
+## Scanner Permissions
+
+Door Staff:
+
+* Admission tickets
+
+Parking Staff:
+
+* Parking tickets
+
+Admins:
+
+* All ticket kinds
+
+If the wrong ticket type is scanned:
+
+Display:
+
+"Valid Ticket - Wrong Checkpoint"
+
+---
+
+## Marketing QR Codes
+
+Marketing QR codes are separate from ticket QR codes.
+
+Purpose:
+
+Drive traffic and measure conversions.
+
+Examples:
+
+* Band QR
+* Promoter QR
+* Flyer QR
+* Poster QR
+* Radio QR
+
+Marketing QR Codes should track:
+
+* Scans
+* Clicks
+* Purchases
+* Revenue
+* Conversion Rate
+
+These QR codes should link to:
+
+```text
+/events/{slug}
+```
+
+not directly to tickets.
+
+---
+
+## Promo Codes
+
+Promo Codes support:
+
+* Discounts
+* Artist attribution
+* Promoter attribution
+* Radio station campaigns
+* Marketing campaigns
+
+Discounts may be:
+
+5%
+10%
+15%
+20%
+25%
+30%
+
+Reporting should include:
+
+* Uses
+* Revenue
+* Tickets sold
+* Discount totals
+* Conversion performance
