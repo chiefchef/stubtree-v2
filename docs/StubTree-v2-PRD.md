@@ -1264,3 +1264,430 @@ Users should be able to review:
 for any historical event.
 
 Archived events remain searchable and reportable.
+
+## Refund Philosophy
+
+Public-facing policy for Josabi's:
+
+> No refunds.
+>
+> Rain or shine.
+>
+> Lineup subject to change.
+>
+> Refund requests may be submitted to [support@stubtree.com](mailto:support@stubtree.com) and will be reviewed on a case-by-case basis.
+
+Customers should not be presented with a self-service refund workflow.
+
+Customers should instead be directed to support.
+
+---
+
+## Internal Refund Capabilities
+
+Authorized users must be able to process:
+
+### Full Refund
+
+Refund entire order.
+
+### Partial Refund
+
+Refund selected tickets within an order.
+
+Example:
+
+Order:
+
+* 4 General Admission Tickets
+
+Refund:
+
+* Ticket 3
+* Ticket 4
+
+### Custom Refund
+
+Refund a specific dollar amount.
+
+Example:
+
+$25.00
+
+without refunding the entire order value.
+
+---
+
+## Refund Tracking
+
+Every refund should store:
+
+* Refund ID
+* Order ID
+* Ticket IDs
+* Refund Amount
+* Refund Type
+* Refund Reason
+* Stripe Refund ID
+* Approved By User
+* Created Date
+* Notes
+
+---
+
+## Ticket Behavior After Refund
+
+Refunded tickets become invalid.
+
+Scanner should display:
+
+```text
+Refunded Ticket
+Not Valid For Entry
+```
+
+Refunded tickets should not be usable.
+
+---
+
+## Bulk Refunds
+
+Bulk refunds are a required feature.
+
+Purpose:
+
+* Event cancellation
+* Artist cancellation
+* Weather issues
+* Event changes
+* Venue decisions
+
+Authorized users should be able to:
+
+### Refund Scope
+
+* Entire Event
+* Selected Ticket Types
+* Selected Orders
+* Selected Tickets
+
+### Refund Type
+
+* Full Refund
+* Ticket Price Only
+* Percentage Refund
+* Custom Amount
+
+### Customer Message
+
+Users should provide a shared message.
+
+Example:
+
+```text
+The event has been cancelled.
+
+A refund has been issued to your original payment method.
+```
+
+---
+
+## Bulk Refund Processing
+
+Bulk refunds should not execute inside a single web request.
+
+Requirements:
+
+* Queue refund jobs
+* Process safely in background
+* Retry failures
+* Log outcomes
+
+Track:
+
+* Refund Batch
+* Refund Batch Items
+* Success Count
+* Failure Count
+
+---
+
+## Door Sales Philosophy
+
+StubTree should support day-of-show ticket sales.
+
+Supported methods:
+
+### Cash
+
+Cash accepted at the venue.
+
+### Stripe Reader
+
+Stripe Reader integrated directly into StubTree.
+
+### External Sales
+
+Manual entry for reporting purposes only.
+
+Examples:
+
+* Venmo
+* Cash App
+* Square
+
+External sales do not generate QR tickets.
+
+---
+
+## Stripe Reader Sales
+
+Stripe Reader sales should:
+
+* Generate tickets
+* Generate QR codes
+* Appear in reporting
+* Appear in settlement calculations
+
+The customer may optionally provide:
+
+* Name
+* Email
+* Phone
+
+Collection of this information is encouraged but not required.
+
+---
+
+## Cash Sales
+
+Cash sales should support:
+
+* Ticket creation
+* Optional customer information
+* Door reconciliation
+
+Cash sales should be included in reporting and settlement.
+
+---
+
+## Door Permissions
+
+Permissions should be configurable.
+
+Examples:
+
+* Scan Tickets
+* Sell Tickets
+* Issue Comps
+* Search Guest List
+* Process Refunds
+* Manual Check-In
+* Undo Check-In
+
+Permissions are not tied directly to roles.
+
+Roles are templates.
+
+---
+
+## Guest Lists
+
+Current process is paper-based.
+
+Future goal:
+
+QR-enabled guest lists.
+
+Guest list entries should support:
+
+* Name
+* Quantity
+* Notes
+* Source
+* Ticket Kind
+* Check-In Status
+
+Examples:
+
+* Band Guest
+* Radio Winner
+* VIP Guest
+* Promoter Guest
+* Owner Guest
+
+---
+
+## Comp Tickets
+
+Comp tickets should be first-class tickets.
+
+Comp tickets should:
+
+* Generate QR codes
+* Appear on guest lists
+* Be reportable
+* Track attendance
+
+Comp tickets should count toward attendance metrics.
+
+---
+
+## Cash Reconciliation
+
+At the end of every event:
+
+Users should be able to view:
+
+* Online Sales
+* Door Cash
+* Door Card
+* External Sales
+* Refunds
+* Discounts
+* Comps
+
+Purpose:
+
+Quick reconciliation and settlement.
+
+---
+
+## Notifications
+
+Notification reliability is critical.
+
+The platform should track all outbound messages.
+
+---
+
+### Email Notifications
+
+Examples:
+
+* Magic Link
+* Verification
+* Ticket Delivery
+* Ticket Resend
+* Refund Notice
+* Event Update
+* Event Cancellation
+* Bulk Refund Notice
+* Password Reset
+
+---
+
+### SMS Notifications
+
+Examples:
+
+* Verification
+* Ticket Link
+* Event Update
+
+SMS is optional.
+
+Email is primary.
+
+---
+
+## Notification Tracking
+
+Track:
+
+* Queued
+* Sent
+* Delivered
+* Failed
+* Bounced
+
+Store:
+
+* Provider Response
+* Timestamp
+* Related Event
+* Related Order
+* Related Customer
+
+---
+
+## Support System
+
+StubTree should include a support request system.
+
+Support requests may be associated with:
+
+* Event
+* Order
+* Ticket
+* Refund
+
+Support categories:
+
+* Refund Request
+* Ticket Issue
+* Event Question
+* General Inquiry
+
+Support requests should be visible to administrators.
+
+Support email:
+
+[support@stubtree.com](mailto:support@stubtree.com)
+
+---
+
+## White Label Roadmap
+
+Not required for v2.
+
+Architecture should support:
+
+### Branding
+
+* Venue Logo
+* Venue Colors
+
+### Domains
+
+* Subdomains
+* Custom Domains
+
+Examples:
+
+```text
+josabis.stubtree.com
+
+tickets.josabis.com
+```
+
+### Stripe
+
+Future support for:
+
+* Connected Accounts
+* Venue-specific payouts
+
+Not required for initial release.
+
+---
+
+## Future Expansion
+
+The platform should remain flexible enough to support:
+
+* Sports
+* Community Events
+* Workshops
+* Classes
+* Fundraisers
+
+without requiring major architectural changes.
+
+The initial focus remains:
+
+* Concerts
+* Music Festivals
+* Bands
+* Promoters
+* Venues
